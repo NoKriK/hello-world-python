@@ -2,3 +2,9 @@ functions:
   - name: hello-world-python
     runtime: python3.8
     handler: hello_world.handler
+  - name: display-koyeb-event
+    image: stedolan/jq
+    args: [".", "/koyeb/events/in/raw"]
+    events: # The events section describes which events will trigger the function
+      - cloudevent:
+          expression: event.source == "koyeb.com/gateway"
